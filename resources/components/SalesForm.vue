@@ -9,8 +9,7 @@
                         </v-text-field>
 
                         <v-text-field v-model="address" :readonly="loading" clearable label="Address"></v-text-field>
-                        <v-combobox  label="Materials" chips
-                            v-model="selectedMaterials" :items="materials2" multiple>
+                        <v-combobox label="Materials" chips v-model="selectedMaterials" :items="materials2" multiple>
                             <!-- <template v-slot:selection="{ attrs, item, selected }">
                                 <v-chip v-if="item === Object(item)" v-bind="attrs" 
                                     :input-value="selected" label small>
@@ -58,10 +57,11 @@
                             <v-form v-model="form" @submit.prevent="onSubmit">
 
                             </v-form>
-                            <v-list-item v-for="material in selectedMaterials "  :key="material.material" title="Material">
-                                {{material.material}}
-                                <v-slider v-model="material.quantity" class="align-center" :step="1" :max="max" :min="min"
-                                    hide-details>
+                            <v-list-item v-for="material in selectedMaterials " :key="material.material"
+                                title="Material">
+                                {{ material.material }}
+                                <v-slider v-model="material.quantity" class="align-center" :step="1" :max="max"
+                                    :min="min" hide-details>
                                     <template v-slot:append>
                                         <v-text-field v-model="slider" hide-details single-line density="compact"
                                             type="number" style="width: 70px"></v-text-field>
@@ -91,7 +91,7 @@ export default {
         customerNumber: null,
         address: null,
         loading: false,
-        materials: [{ material: 'Wood',quantity:0 }, { material: 'Metal',quantity:0 }, { material: 'Glass',quantity:0 }, { material: 'Marble',quantity:0 },],
+        materials: [{ material: 'Wood', quantity: 0 }, { material: 'Metal', quantity: 0 }, { material: 'Glass', quantity: 0 }, { material: 'Marble', quantity: 0 },],
         materials2: ['Wood', 'Metal', 'Marble', 'Glass'],
         selectedMaterials: [],
         min: 0,
@@ -100,12 +100,28 @@ export default {
     }),
 
     methods: {
-        onSubmit() {
+        async onSubmit() {
             if (!this.form) return
 
             this.loading = true
 
             setTimeout(() => (this.loading = false), 2000)
+            const response = await axios.post('/invoice', {
+                client_id: 1,
+                delivery_address: 'This is a user',
+                materials: [{
+                    material_id: 1,
+                    amount: 2
+                }, {
+                    material_id: 2,
+                    amount: 3
+                }, {
+                    material_id: 5,
+                    amount: 6
+                },]
+            })
+            console.log('aaa')
+            console.log(response)
         },
         required(v) {
             return !!v || 'Field is required'

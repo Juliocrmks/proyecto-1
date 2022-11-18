@@ -15,7 +15,7 @@ import SalesForm from '../components/SalesForm.vue'
 import CreateUser from '../components/CreateUser.vue'
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://localhost:8001/api/"
+axios.defaults.baseURL = "http://localhost:8000/api/"
 
 
 

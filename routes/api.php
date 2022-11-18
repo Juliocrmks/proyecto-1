@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\InvoiceController;
+
+
 
 
 
@@ -22,4 +25,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+
 Route::post('/user',[ClientController::class, 'store']);
+
+
+Route::post('/invoice', [InvoiceController::class, 'store'] );
+
+
+// Route::post('/invoice', 'App\Http\Controllers\InvoiceController@store');

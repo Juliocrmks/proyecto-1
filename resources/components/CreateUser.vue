@@ -8,8 +8,9 @@
                             label="Client name">
                         </v-text-field>
 
-                        <v-text-field :type="password" v-model="password" :readonly="loading" clearable label="Paswword"></v-text-field>
-                        
+                        <v-text-field :type="password" v-model="password" :readonly="loading" clearable
+                            label="Paswword"></v-text-field>
+
                         <br>
 
                         <v-btn :disabled="!form" :loading="loading" block color="success" size="large" type="submit"
@@ -34,8 +35,14 @@ export default {
     }),
 
     methods: {
-        onSubmit() {
-            axios.post('/user')
+        async onSubmit() {
+            const response = await axios.post('/user', {
+                name: this.clientName,
+                password: this.password,
+                description: 'This is a user'
+            })
+            console.log('aaa')
+            console.log(response)
             if (!this.form) return
 
             this.loading = true

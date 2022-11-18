@@ -42,16 +42,11 @@ class ClientController extends Controller
      */
     public function store(StoreClientRequest $request)
     {   
-        Log::info( "request is " . print_r($request->all(), true ) );
-        // want to see location input, it prints nothing
-        Log::info( "request is " . print_r($request->input('name'), true ) );  
-        Client::create([
-            'name' => 'Julio2212',
-            'description' => 'alumno'
+        $client = Client::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description')
         ]);
-        return response()->json([
-            'message' => $request
-        ], 200);
+        return response()->json($request);
     }
 
     /**
