@@ -30,6 +30,6 @@ Route::post('/user',[ClientController::class, 'store']);
 
 
 Route::post('/invoice', [InvoiceController::class, 'store'] );
-
+Route::get('/invoice', [InvoiceController::class, 'show'] );
 
 // Route::post('/invoice', 'App\Http\Controllers\InvoiceController@store');

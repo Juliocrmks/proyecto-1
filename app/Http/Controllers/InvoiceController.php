@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Invoice;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Log;
 use App\Models\InvoiceRow;
 
@@ -46,24 +46,32 @@ class InvoiceController extends Controller
         $invoice = Invoice::create([
             'client_id' => 1,
             'delivery_address' => '1234 calle ave ',
-            'total'=>'1000',
+            'total'=>'0',
             
         ]);
 
-        Log::info($invoice->id);
+        // Log::info($invoice->id);
         $total = '0';
+        $invoice_rows_temp = array();
         foreach ($materials as $row => $val ){
             // Log::info("MAMAHUEVO");
             // Log::warning($row);
             // Log::error($val);
+            $material = Material::find($val['material_id']);
             $invoice_row = InvoiceRow::create([
                 'invoice_id' => $invoice->id,
                 'amount' => $val['amount'],
                 'material_id' => $val['material_id']
             ]);
+            array_push($invoice_rows_temp, $invoice_row->id);
+            $price = (float)$val['amount'] * (float)$material->price;
+            $total = $total + $price;
+           
+
         }
-
-
+        $invoice->invoice_rows = $invoice_rows_temp;
+        $invoice->save();
+        
         return response()->json($materials);
     }
 
@@ -73,9 +81,10 @@ class InvoiceController extends Controller
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function show(Invoice $invoice)
+    public function show(Request $invoice)
     {
-        //
+        Log::info($invoice);
+        return response()->json($invoice);
     }
 
     /**
@@ -98,7 +107,12 @@ class InvoiceController extends Controller
      */
     public function update(UpdateInvoiceRequest $request, Invoice $invoice)
     {
-        //
+        $invoice_edit = Invoice::find($request->input('id'));
+        $invoice_edit->status_id = $request->input('id');
+        $invoice_edit->save();
+
+        return response()->json($invoice_edit);
+
     }
 
     /**

@@ -106,22 +106,21 @@ export default {
             this.loading = true
 
             setTimeout(() => (this.loading = false), 2000)
-            const response = await axios.post('/invoice', {
-                client_id: 1,
-                delivery_address: 'This is a user',
-                materials: [{
-                    material_id: 1,
-                    amount: 2
-                }, {
-                    material_id: 2,
-                    amount: 3
-                }, {
-                    material_id: 5,
-                    amount: 6
-                },]
-            })
-            console.log('aaa')
-            console.log(response)
+            // const response = await axios.get('/invoice', {
+            //     client_id: 1,
+            //     delivery_address: 'Address',
+            //     materials: [{
+            //         material_id: 1,
+            //         amount: 2
+            //     }, {
+            //         material_id: 2,
+            //         amount: 3
+            //     }, {
+            //         material_id: 5,
+            //         amount: 6
+            //     },]
+            // });
+            const response = await axios.get(`/invoice`,{id:1} )
         },
         required(v) {
             return !!v || 'Field is required'
