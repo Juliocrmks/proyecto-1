@@ -47,6 +47,7 @@ class InvoiceController extends Controller
             'client_id' => 1,
             'delivery_address' => '1234 calle ave ',
             'total'=>'0',
+            'status_id'=> 1
             
         ]);
 
@@ -54,7 +55,6 @@ class InvoiceController extends Controller
         $total = '0';
         $invoice_rows_temp = array();
         foreach ($materials as $row => $val ){
-            // Log::info("MAMAHUEVO");
             // Log::warning($row);
             // Log::error($val);
             $material = Material::find($val['material_id']);
@@ -81,8 +81,10 @@ class InvoiceController extends Controller
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $invoice)
+    public function show(Invoice $invoice)
     {
+       // dd($id);
+    //    $invoice = Invoice::find($id);
         Log::info($invoice);
         return response()->json($invoice);
     }
