@@ -21,8 +21,9 @@ class InvoiceSeeder extends Seeder
         Invoice::create([
             'client_id' => 1,
             'delivery_address' => '1234 calle ave ',
-            'total' => '1405.09'
+            'total' => '1405.09',
         ]);
+
         
         
     }

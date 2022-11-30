@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+
 
 class UserController extends Controller
 {
@@ -34,7 +36,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::create([
+            'name'=> $request->input('name'),
+            'email'=> $request->input('email'),
+            'surname'=> $request->input('surname'),
+            'role_id'=> $request->input('role_id'),
+            'password'=> $request->input('password'),
+        ]);
     }
 
     /**

@@ -20,6 +20,10 @@ return new class extends Migration
             $table->foreignId('status_id')->constrained();
             $table->string('delivery_address');
             $table->string('total');
+            $table->json('invoice_rows')->nullable();
+            $table->string('delivery')->nullable();
+            $table->string('transport')->nullable();
+
         });
     }
 
